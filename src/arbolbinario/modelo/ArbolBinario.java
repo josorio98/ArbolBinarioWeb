@@ -425,7 +425,48 @@ public void podar() {
             cambiar(reco.getIzquierda(), nivel + 1);
             cambiar(reco.getDerecha(), nivel + 1);
         }
+    }private Nodo buscarMin(Nodo r) {
+        for (; r.getIzquierda() != null; r = r.getIzquierda());
+        return (r);
+    }
+    private Nodo borrar(Nodo r, int x) {
+        if (r == null) {
+          return null;  //<--Dato no encontrado		
+        }
+        return null;
+    }
+    public Nodo BorrarNivel(int x)  {
+        Nodo reco = raiz;
+        if (reco != null) {
+            int Nivelizq = reco.getIzquierda().obtenerAlturaNodo()+1;
+            int Nivelder = reco.getDerecha().obtenerAlturaNodo()+1;
+             
+         if (Nivelizq== x && Nivelder == x){
+            Nodo cambiar = buscarMin(reco.getDerecha());
+                int aux = cambiar.getDato();
+                cambiar.setDato(reco.getDato());
+                reco.setDato(aux);
+                reco.setDerecha(borrar(reco.getDerecha(), x));
+                System.out.println("2 ramas");
+            } else {
+                reco = (reco.getIzquierda() != null) ? reco.getIzquierda() : reco.getDerecha();
+                System.out.println("Entro cuando le faltan ramas ");
+            }
+        }
+        return reco;  
+         }
+          public boolean cambiarNodos(int x) {
+            cambiarNodos(raiz, 1,x);    
+            return true;
     }
 
+    private void cambiarNodos(Nodo reco, int nivel, int x) {
+        if (reco != null) {
+            reco.setDato(reco.getDato() * x);
+            cambiarNodos(reco.getIzquierda(), nivel + 1,x);
+            cambiarNodos(reco.getDerecha(), nivel + 1,x);
+        }
+    }
+     }
   
-}
+
